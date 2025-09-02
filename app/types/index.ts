@@ -5,7 +5,7 @@ interface TJob {
   requiredSkills: string[];
 }
 
-interface TResume {
+export interface TResume {
   id: string;
   companyName?: string;
   jobTitle?: string;
@@ -14,7 +14,7 @@ interface TResume {
   feedback: TFeedback;
 }
 
-interface TFeedback {
+export interface TFeedback {
   overallScore: number;
   ATS: {
     score: number;
@@ -55,4 +55,11 @@ interface TFeedback {
       explanation: string;
     }[];
   };
+}
+
+export interface THandleAnalyzeProps {
+  companyName: string;
+  jobTitle: string;
+  jobDescription: string;
+  file: File;
 }

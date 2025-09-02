@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {formatSize} from '~/utils/FormatSize';
+import {formatSize} from '~/utils/formatSize';
 
 interface IFileUploaderProps {
   setFile: (file: File | null) => void;

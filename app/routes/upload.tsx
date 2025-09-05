@@ -6,13 +6,15 @@ import {usePuterStore} from '~/lib/puter';
 import type {THandleAnalyzeProps} from '~/types';
 import {generateUUID} from '~/utils/generateUUID';
 import {prepareInstructions} from '../../constants';
+import {useNavigate} from 'react-router';
 
 const upload = () => {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [statusText, setStatusText] = useState('Initial Text');
+  const [statusText, setStatusText] = useState('Loading...');
   const [file, setFile] = useState<File | null>(null);
 
   const {fs, kv, ai} = usePuterStore();
+  const navigate = useNavigate();
 
   const handleAnalyzeResume = async ({
     companyName,
@@ -74,6 +76,7 @@ const upload = () => {
 
     setStatusText('Analysis completed, redirecting...');
     console.log(data);
+    navigate(`/resume/${data.id}`);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -109,12 +112,12 @@ const upload = () => {
               <img
                 src="images/resume-scan.gif"
                 alt="pdf scan"
-                className="w-full"
+                className="w-full -mt-20"
               />
             </>
           ) : (
             <h2 className="text-gray-500">
-              Drop your resume fir an ATS score and improvement tips.
+              Drop your resume for an ATS score and improvement tips.
             </h2>
           )}
 

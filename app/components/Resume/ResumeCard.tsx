@@ -1,5 +1,6 @@
 import {Link} from 'react-router';
 import ScoreCircle from '../UI/ScoreCircle';
+import type {TResume} from '~/types';
 
 const ResumeCard = ({resume}: {resume: TResume}) => {
   const {id, companyName, jobTitle, imagePath, feedback} = resume;

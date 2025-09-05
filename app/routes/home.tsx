@@ -5,6 +5,7 @@ import Navbar from '~/components/Shared/Navbar';
 import {usePuterStore} from '~/lib/puter';
 import {useNavigate} from 'react-router';
 import {useEffect} from 'react';
+import type {TResume} from '~/types';
 
 export function meta({}: Route.MetaArgs) {
   return [

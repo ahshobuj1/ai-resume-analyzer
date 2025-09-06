@@ -4,11 +4,24 @@ import ATS from '~/components/Feedback/ATS';
 import Details from '~/components/Feedback/Details';
 import Summary from '~/components/Feedback/Summary';
 import {usePuterStore} from '~/lib/puter';
+import type {TFeedback} from '~/types';
+import type {Route} from '../+types/root';
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    {title: 'CareerScan | Feedback'},
+    {
+      name: 'description',
+      content:
+        'CareerScan | AI Resume Analyzer & Scanner for Better Job Opportunities!',
+    },
+  ];
+}
 
 const resume = () => {
   const [resumeUrl, setResumeUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState<TFeedback | null>(null);
 
   const {id} = useParams();
   const {auth, isLoading, fs, kv} = usePuterStore();
@@ -47,6 +60,7 @@ const resume = () => {
           </span>
         </Link>
       </nav>
+
       <div className="flex flex-row w-full max-lg:flex-col-reverse ">
         <div className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover h-[100vh] sticky top-0 items-center justify-center ">
           {imageUrl && resumeUrl && (
@@ -68,9 +82,12 @@ const resume = () => {
 
           {feedback ? (
             <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
-              <Summary />
-              <ATS />
-              <Details />
+              <Summary feedback={feedback} />
+              <ATS
+                score={feedback.ATS.score || 0}
+                suggetions={feedback.ATS.tips || []}
+              />
+              <Details feedback={feedback} />
             </div>
           ) : (
             <img

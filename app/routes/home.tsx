@@ -5,6 +5,7 @@ import {usePuterStore} from '~/lib/puter';
 import {Link, useNavigate} from 'react-router';
 import {useEffect, useState} from 'react';
 import type {TResume} from '~/types';
+import WipeApp from './wipe';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -65,6 +66,7 @@ export default function Home() {
           )}
         </div>
 
+        {/* loading state */}
         {loading && (
           <div className="flex flex-col items-center justify-center">
             <img
@@ -78,11 +80,19 @@ export default function Home() {
         {/* Resume */}
 
         {!loading && resumes.length > 0 && (
-          <div className="resumes-section">
-            {resumes.map((resume: TResume) => (
-              <ResumeCard key={resume.id} resume={resume} />
-            ))}
-          </div>
+          <>
+            <Link
+              to={'/wipe'}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer">
+              Clear all History
+            </Link>
+
+            <div className="resumes-section">
+              {resumes.map((resume: TResume) => (
+                <ResumeCard key={resume.id} resume={resume} />
+              ))}
+            </div>
+          </>
         )}
 
         {!loading && resumes.length === 0 && (
